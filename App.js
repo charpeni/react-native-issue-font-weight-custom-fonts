@@ -6,93 +6,96 @@
  * @flow
  */
 
-import React, { Fragment } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E0E0E0',
+  },
+  card: {
+    backgroundColor: 'white',
+    marginTop: 16,
+    marginHorizontal: 16,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#BDBDBD',
+    elevation: 3,
+    overflow: 'hidden',
+  },
+  header: {
+    backgroundColor: '#F5F5F5',
+    borderBottomWidth: 1,
+    borderBottomColor: '#BDBDBD',
+    padding: 8,
+  },
+  code: {
+    backgroundColor: '#F3DDB3',
+  },
+  example: {
+    flexDirection: 'row',
+    margin: 8,
+    backgroundColor: '#C1CD97',
+  },
+  filler: {
+    flex: 1,
+    backgroundColor: '#E18D96',
+  },
+});
+
+const examples = [
+  {
+    description: 'Text without style',
+  },
+  {
+    description: null,
+    textStyle: {
+      fontWeight: 'bold',
+    },
+  },
+  {
+    description:
+      'We can solve this by applying a border to our text, but then it will not be vertically centered.',
+    textStyle: {
+      fontWeight: 'bold',
+      borderWidth: 2,
+      borderColor: 'transparent',
+    },
+  },
+  {
+    description:
+      'We can solve this by setting a negative marginBottom corresponding to our vertical borders width.',
+    textStyle: {
+      fontWeight: 'bold',
+      borderWidth: 2,
+      borderColor: 'transparent',
+      marginBottom: -4,
+    },
+  },
+];
 
 const App = () => {
   return (
-    <Fragment>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}
-        >
-          <Header />
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
+    <View style={styles.container}>
+      {examples.map((example, index) => (
+        <View style={styles.card} key={index}>
+          <View style={styles.header}>
+            {example.textStyle ? (
+              <Text style={styles.code}>
+                {JSON.stringify(example.textStyle, null, 2)}
               </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+            ) : null}
+            {example.description ? <Text>{example.description}</Text> : null}
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Fragment>
+          <View style={styles.example}>
+            <Text style={example.textStyle}>This looks great!</Text>
+            <View style={styles.filler} />
+          </View>
+        </View>
+      ))}
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
